@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Café An'Clair — Downtown Bellevue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5EFE0;
+    --cream-dark: #EDE3CC;
+    --espresso: #2A1A0E;
+    --terra: #B5572B;
+    --terra-light: #D4845A;
+    --sage: #7A8C6E;
+    --sand: #C9B48A;
+    --white: #FDFAF4;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--espresso);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(253,250,244,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(42,26,14,0.08);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--espresso);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--espresso);
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .nav-links a:hover { opacity: 1; }
+
+  .nav-cta {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.4rem;
+    background: var(--terra);
+    color: #fff;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .nav-cta:hover { background: var(--espresso); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--espresso);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    padding-top: 80px;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 4rem 5rem 5rem;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sand);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--cream);
+    margin-bottom: 1.8rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--terra-light);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: rgba(245,239,224,0.65);
+    max-width: 380px;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; align-items: center;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 0.85rem 2rem;
+    background: var(--terra);
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: background 0.2s;
+  }
+
+  .btn-primary:hover { background: var(--terra-light); }
+
+  .btn-ghost {
+    display: inline-block;
+    padding: 0.85rem 2rem;
+    border: 1px solid rgba(245,239,224,0.3);
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-ghost:hover { border-color: var(--cream); color: var(--cream); }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-image-mosaic {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    height: 100%;
+    gap: 4px;
+    padding: 2rem 3rem 2rem 1rem;
+  }
+
+  .mosaic-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4px;
+  }
+
+  .mosaic-img {
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Simulated café photos using CSS art */
+  .img-latte {
+    background: linear-gradient(145deg, #6B3A2A 0%, #8B5E3C 30%, #C4956A 55%, #E8C99A 75%, #F5E6D0 100%);
+  }
+
+  .img-shop {
+    background: linear-gradient(160deg, #3D2B1F 0%, #5C4035 25%, #8B6B52 50%, #C4956A 75%, #DEB887 100%);
+  }
+
+  .img-toast {
+    background: linear-gradient(135deg, #6B8C4A 0%, #7A9B52 20%, #A8C47A 40%, #E8D5A3 65%, #F5E6D0 100%);
+  }
+
+  .img-matcha {
+    background: linear-gradient(145deg, #4A6741 0%, #6B8C5A 30%, #9BBD7A 55%, #C8E0A8 80%, #F0F5E8 100%);
+  }
+
+  .mosaic-label {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.9);
+    background: rgba(0,0,0,0.3);
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+    backdrop-filter: blur(4px);
+  }
+
+  .hero-badge {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 4rem;
+    background: var(--cream);
+    border-radius: 50%;
+    width: 110px;
+    height: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  }
+
+  .badge-stars {
+    color: var(--terra);
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.2rem;
+  }
+
+  .badge-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--espresso);
+    line-height: 1;
+  }
+
+  .badge-text {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--espresso);
+    opacity: 0.6;
+    margin-top: 0.2rem;
+  }
+
+  /* SECTION: HOURS STRIP */
+  .hours-strip {
+    background: var(--terra);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    padding: 1.5rem 3rem;
+    flex-wrap: wrap;
+  }
+
+  .hours-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .hours-item .dot {
+    width: 5px; height: 5px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 50%;
+  }
+
+  /* MENU SECTION */
+  .section {
+    padding: 6rem 5rem;
+  }
+
+  .section-header {
+    margin-bottom: 3.5rem;
+  }
+
+  .section-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terra);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--espresso);
+  }
+
+  .section-title em { font-style: italic; color: var(--terra); }
+
+  /* MENU GRID */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: rgba(42,26,14,0.08);
+    border: 1.5px solid rgba(42,26,14,0.08);
+  }
+
+  .menu-item {
+    background: var(--white);
+    padding: 2rem;
+    position: relative;
+    transition: background 0.2s;
+    cursor: default;
+  }
+
+  .menu-item:hover { background: var(--cream); }
+
+  .menu-item-icon {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .icon-coffee { background: #F5E6D0; }
+  .icon-matcha { background: #EAF0DD; }
+  .icon-toast  { background: #FFF0E6; }
+  .icon-pastry { background: #F0EAE0; }
+  .icon-tea    { background: #E8F0EA; }
+  .icon-cold   { background: #E0EEFA; }
+
+  .menu-item-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--espresso);
+    margin-bottom: 0.4rem;
+  }
+
+  .menu-item-desc {
+    font-size: 0.82rem;
+    color: rgba(42,26,14,0.55);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .menu-item-tag {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--terra);
+    background: rgba(181,87,43,0.08);
+    padding: 0.2rem 0.55rem;
+    border-radius: 2px;
+  }
+
+  /* ABOUT / STORY */
+  .about {
+    background: var(--espresso);
+    padding: 7rem 5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .about-img-main {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: linear-gradient(160deg, #5C4035, #8B6B52, #C4956A, #E8C99A);
+    border-radius: 4px;
+  }
+
+  .about-img-accent {
+    position: absolute;
+    bottom: -2rem;
+    right: -2rem;
+    width: 55%;
+    aspect-ratio: 1;
+    background: linear-gradient(145deg, #4A6741, #7A9B52, #C8E0A8);
+    border-radius: 4px;
+    border: 6px solid var(--espresso);
+  }
+
+  .about-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--sand);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--terra);
+  }
+
+  .about-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-text h2 em { font-style: italic; color: var(--terra-light); }
+
+  .about-text p {
+    color: rgba(245,239,224,0.65);
+    font-size: 0.95rem;
+    line-height: 1.9;
+    margin-bottom: 1.2rem;
+    font-weight: 300;
+  }
+
+  .about-owner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(245,239,224,0.12);
+  }
+
+  .owner-avatar {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--terra), var(--terra-light));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .owner-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--cream);
+  }
+
+  .owner-role {
+    font-size: 0.75rem;
+    color: rgba(245,239,224,0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* REVIEWS */
+  .reviews {
+    background: var(--cream);
+    padding: 6rem 5rem;
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .review-card {
+    background: var(--white);
+    padding: 1.8rem;
+    border-radius: 4px;
+    border: 1px solid rgba(42,26,14,0.07);
+  }
+
+  .review-stars {
+    color: var(--terra);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.9rem;
+  }
+
+  .review-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--espresso);
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+    font-weight: 400;
+  }
+
+  .review-author {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--terra);
+  }
+
+  .review-source {
+    font-size: 0.72rem;
+    color: rgba(42,26,14,0.4);
+    margin-top: 0.15rem;
+  }
+
+  /* VISIT SECTION */
+  .visit {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 420px;
+  }
+
+  .visit-map {
+    background: linear-gradient(135deg, #B8C9B0 0%, #9BB08F 30%, #7A9B7A 60%, #5C8C5C 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .map-pin {
+    width: 48px; height: 48px;
+    background: var(--terra);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+
+  .map-pin::after {
+    content: '';
+    width: 20px; height: 20px;
+    background: var(--white);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .visit-info {
+    background: var(--espresso);
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .visit-info h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 2.5rem;
+  }
+
+  .info-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .info-icon {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(245,239,224,0.1);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+  }
+
+  .info-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--sand);
+    margin-bottom: 0.2rem;
+  }
+
+  .info-value {
+    font-size: 0.9rem;
+    color: rgba(245,239,224,0.75);
+    font-weight: 300;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #1A0E06;
+    padding: 3rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(245,239,224,0.06);
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: var(--cream);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: rgba(245,239,224,0.3);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(245,239,224,0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--cream); }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left > * { animation: fadeUp 0.7s ease both; }
+  .hero-eyebrow { animation-delay: 0.1s; }
+  .hero-title   { animation-delay: 0.25s; }
+  .hero-sub     { animation-delay: 0.4s; }
+  .hero-actions { animation-delay: 0.55s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Café An'Clair</a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#visit">Visit</a></li>
+  </ul>
+  <a href="#visit" class="nav-cta">Find Us</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Downtown Bellevue · Est. 2022</p>
+    <h1 class="hero-title">A corner of<br><em>Paris</em> in<br>Bellevue.</h1>
+    <p class="hero-sub">Where mornings slow down. Exceptional coffee, seasonal drinks, and baked goods served with warmth — Monday through Friday.</p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn-primary">View Menu</a>
+      <a href="#visit" class="btn-ghost">Hours & Location</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-image-mosaic">
+      <div class="mosaic-top">
+        <div class="mosaic-img img-latte" style="border-radius:4px; position:relative;">
+          <span class="mosaic-label">Baklawa Latte</span>
+        </div>
+        <div class="mosaic-img img-shop" style="border-radius:4px; position:relative;">
+          <span class="mosaic-label">Our Café</span>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 2fr; gap:4px;">
+        <div class="mosaic-img img-matcha" style="border-radius:4px; position:relative;">
+          <span class="mosaic-label">Matcha</span>
+        </div>
+        <div class="mosaic-img img-toast" style="border-radius:4px; position:relative;">
+          <span class="mosaic-label">Avocado Toast</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <div class="badge-stars">★★★★★</div>
+      <div class="badge-num">4.7</div>
+      <div class="badge-text">Google Reviews</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS STRIP -->
+<div class="hours-strip">
+  <div class="hours-item">
+    <span>Monday – Friday</span>
+    <span class="dot"></span>
+    <span>7:30 am – 2:00 pm</span>
+  </div>
+  <div class="hours-item">
+    <span class="dot"></span>
+    <span>10900 NE 4th Street, Bellevue</span>
+    <span class="dot"></span>
+  </div>
+  <div class="hours-item">
+    <span>Outdoor Seating Available</span>
+  </div>
+</div>
+
+<!-- MENU SECTION -->
+<section class="section" id="menu">
+  <div class="section-header">
+    <p class="section-eyebrow">What We Serve</p>
+    <h2 class="section-title">Simple things,<br><em>made beautifully.</em></h2>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-item">
+      <div class="menu-item-icon icon-coffee">☕</div>
+      <div class="menu-item-name">Mocha Latte</div>
+      <div class="menu-item-desc">Real chocolate, not too sweet. Split-shot espresso with a bold, clean finish.</div>
+      <span class="menu-item-tag">Fan Favorite</span>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-icon icon-matcha">🍵</div>
+      <div class="menu-item-name">Matcha Latte</div>
+      <div class="menu-item-desc">Ceremonial matcha with vanilla. Earthy, sweet, and perfectly balanced.</div>
+      <span class="menu-item-tag">Best Seller</span>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-icon icon-coffee">🫗</div>
+      <div class="menu-item-name">Americano</div>
+      <div class="menu-item-desc">House espresso with sweet, honeyed notes. Clean and satisfying.</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-icon icon-toast">🥑</div>
+      <div class="menu-item-name">Avocado Toast</div>
+      <div class="menu-item-desc">Thick-cut bread with a generous, fresh topping. Simple and delicious.</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-icon icon-pastry">🥐</div>
+      <div class="menu-item-name">Fresh Pastries</div>
+      <div class="menu-item-desc">Rotating seasonal selection baked fresh daily. Scones, croissants, and more.</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-icon icon-tea">🫖</div>
+      <div class="menu-item-name">Jasmine Tea</div>
+      <div class="menu-item-desc">Floral, aromatic, and calming. A favorite for quiet mornings.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="about" id="about">
+  <div class="about-visual">
+    <div class="about-img-main"></div>
+    <div class="about-img-accent"></div>
+  </div>
+  <div class="about-text">
+    <p class="section-eyebrow" style="color: var(--sand);">Our Story</p>
+    <h2>A place to <em>slow down</em> and savor.</h2>
+    <blockquote class="about-quote">
+      "An was so nice and she gave us free pastries too. Will be back for sure — this is one of my favorite coffee shops now." — Google Review
+    </blockquote>
+    <p>Tucked between Bellevue's towers, Café An'Clair is a place that feels genuinely different. Calm, green, full of shade — perfect for a sunny morning or a quiet afternoon.</p>
+    <p>We believe good coffee is about care: in the sourcing, in the craft, and in the welcome you receive when you walk through our doors.</p>
+    <div class="about-owner">
+      <div class="owner-avatar">A</div>
+      <div>
+        <div class="owner-name">An</div>
+        <div class="owner-role">Owner & Barista</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews">
+  <div class="section-header">
+    <p class="section-eyebrow">What People Say</p>
+    <h2 class="section-title">Words from our <em>regulars.</em></h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"I got a matcha latte with vanilla — perfect balance of sweet and earthy matcha taste. Absolutely in love."</p>
+      <div class="review-author">A. L.</div>
+      <div class="review-source">Google Reviews</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"The atmosphere is really cool. Between skyscrapers but calm, green with lots of shade — perfect for a sunny day."</p>
+      <div class="review-author">F. L.</div>
+      <div class="review-source">Google Reviews</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"The iced mocha with real chocolate is amazing. Americano has sweet notes. Would definitely get both again."</p>
+      <div class="review-author">H. K.</div>
+      <div class="review-source">Google Reviews</div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT SECTION -->
+<section class="visit" id="visit">
+  <div class="visit-map">
+    <div class="map-pin"></div>
+  </div>
+  <div class="visit-info">
+    <h2>Come find us.</h2>
+    <div class="info-row">
+      <div class="info-icon">📍</div>
+      <div>
+        <div class="info-label">Address</div>
+        <div class="info-value">10900 NE 4th Street, Suite<br>Downtown Bellevue, WA 98004</div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">🕐</div>
+      <div>
+        <div class="info-label">Hours</div>
+        <div class="info-value">Monday – Friday: 7:30 am – 2:00 pm<br>Saturday – Sunday: Closed</div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">🅿️</div>
+      <div>
+        <div class="info-label">Parking</div>
+        <div class="info-value">Free parking in the adjacent garage.<br>Street parking also available nearby.</div>
+      </div>
+    </div>
+    <div style="margin-top: 2rem;">
+      <a href="https://maps.google.com" class="btn-primary" target="_blank">Open in Maps</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Café An'Clair</div>
+  <ul class="footer-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#about">Story</a></li>
+    <li><a href="#visit">Visit</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 Café An'Clair · Downtown Bellevue</div>
+</footer>
+
+</body>
+</html>
